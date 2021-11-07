@@ -59,9 +59,11 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="5"
+        android:layout_marginBottom="5dp"
         android:backgroundTint="@color/design_default_color_secondary"
-        android:text="INICIAR SESION" />
+        android:onClick="pressLogin"
+        android:text="INICIAR SESION"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/or"
@@ -74,7 +76,8 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="1dp"
         android:text="ó"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/registerbtn"
@@ -87,5 +90,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="5dp"
         android:backgroundTint="@color/design_default_color_secondary"
-        android:text="REGISTRARSE" />
+        android:onClick="pressRegistro"
+        android:text="REGISTRARSE"
+        android:textStyle="bold" />
 </RelativeLayout>
