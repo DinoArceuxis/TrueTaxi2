@@ -9,7 +9,6 @@ import android.widget.EditText;
 
 public class MisDatosActivity extends AppCompatActivity {
     private EditText et_username,et_password,et_mail,et_tlf,et_pago;
-    private String username,password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,13 +19,10 @@ public class MisDatosActivity extends AppCompatActivity {
         et_password = findViewById(R.id.password);
         et_password.setText(bundle.getString("password"));
         et_mail = findViewById(R.id.mail);
-        et_mail.setText("Correo");
+        et_mail.setText(bundle.getString("mail"));
         et_tlf = findViewById(R.id.tlf);
-        et_tlf.setText("Teléfono");
+        et_tlf.setText(bundle.getString("tlf"));
         et_pago = findViewById(R.id.formapago);
-        et_pago.setText("Bitcoin");
-
-        username=et_username.getText().toString();
-        password=et_password.getText().toString();
+        et_pago.setText(bundle.getString("pago"));
     }
 }

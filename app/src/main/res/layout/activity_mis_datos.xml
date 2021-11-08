@@ -14,7 +14,6 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:text="Mis Datos"
         android:textColor="@color/white"
@@ -24,10 +23,9 @@
     <ImageView
         android:layout_width="match_parent"
         android:id="@+id/imagen"
-        android:layout_height="200dp"
-        android:padding="10dp"
+        android:layout_height="150dp"
         android:layout_below="@id/txt_iniciarsesion"
-        android:src="@drawable/jordienp"/>
+        android:src="@drawable/ic_baseline_person_outline_24"/>
     <EditText
         android:id="@+id/username"
         android:layout_width="match_parent"

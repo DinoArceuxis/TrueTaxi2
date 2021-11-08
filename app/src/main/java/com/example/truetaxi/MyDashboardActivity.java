@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 public class MyDashboardActivity extends AppCompatActivity {
-    private String username,password;
+    private String username,password,mail,tlf,pago;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -17,6 +17,9 @@ public class MyDashboardActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         username = bundle.getString("username");
         password = bundle.getString("password");
+        mail=bundle.getString("mail");
+        tlf=bundle.getString("tlf");
+        pago=bundle.getString("pago");
         if(username.equals("admin") && password.equals("admin"))
         {
             findViewById(R.id.cv_listataxis).setVisibility(View.VISIBLE);
@@ -33,15 +36,30 @@ public class MyDashboardActivity extends AppCompatActivity {
         Intent i = new Intent(this,MisDatosActivity.class);
         i.putExtra("username",username);
         i.putExtra("password",password);
+        i.putExtra("mail",mail);
+        i.putExtra("tlf",tlf);
+        i.putExtra("pago",pago);
         startActivity(i);
     }
     public void click_solicitartaxi(View view)
     {
-        startActivity(new Intent(MyDashboardActivity.this,SolicitarTaxiActivity.class));
+        Intent i = new Intent(this,SolicitarTaxiActivity.class);
+        i.putExtra("username",username);
+        i.putExtra("password",password);
+        i.putExtra("mail",mail);
+        i.putExtra("tlf",tlf);
+        i.putExtra("pago",pago);
+        startActivity(i);
     }
     public void click_missolicitudes(View view)
     {
-        startActivity(new Intent(MyDashboardActivity.this,MisSolicitudesActivity.class));
+        Intent i = new Intent(this,MisSolicitudesActivity.class);
+        i.putExtra("username",username);
+        i.putExtra("password",password);
+        i.putExtra("mail",mail);
+        i.putExtra("tlf",tlf);
+        i.putExtra("pago",pago);
+        startActivity(i);
     }
     public void click_logout(View view)
     {

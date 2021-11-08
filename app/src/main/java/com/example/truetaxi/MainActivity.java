@@ -41,6 +41,17 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(this,MyDashboardActivity.class);
                 i.putExtra("username",username);
                 i.putExtra("password",password);
+                if(username.equals("admin"))
+                {
+                    i.putExtra("mail", "admin@admin.com");
+                    i.putExtra("tlf", "123456789");
+                    i.putExtra("pago", "Dogecoin");
+                }
+                else {
+                    i.putExtra("mail", fila.getString(3));
+                    i.putExtra("tlf", fila.getString(4));
+                    i.putExtra("pago", fila.getString(5));
+                }
                 startActivity(i);
                 finish();
             }
@@ -48,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 Toast.makeText(MainActivity.this, "Nombre o contraseña incorrectos. Prueba otra vez.", Toast.LENGTH_SHORT).show();
             }
+            db.close();
         }
     }
     public void pressRegistro(View view)

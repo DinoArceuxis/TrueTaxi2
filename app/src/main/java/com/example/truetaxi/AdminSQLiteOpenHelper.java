@@ -13,7 +13,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table Cliente(id_cliente int primary key, nombre text, password text, correo text, telf text, pago text)");
         db.execSQL("create table Taxi(id_taxi int primary key, matricula text, estado text, ubicacion text, destino text)");
-        db.execSQL("create table Solicitud(id_solicitud int primary key, origen text, destino text, fecha text, hora text, id_cliente int, id_taxi int)");
+        db.execSQL("create table Solicitud(id_solicitud int primary key, origen text, destino text, fecha text, hora text, id_cliente int, id_taxi int, verificada int)");
 
     }
 

@@ -95,6 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(new Intent(RegisterActivity.this, ActivitySplashScreen.class));
                 finish();
             }
+            db.close();
         }
     }
 }
