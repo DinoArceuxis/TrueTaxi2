@@ -10,6 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrueTaxi">
         <activity
+            android:name=".SolicitudesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ListaTaxisActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MisSolicitudesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SolicitarTaxiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MisDatosActivity"
+            android:exported="false" />
+        <activity
             android:name=".MyDashboardActivity"
             android:exported="false" />
         <activity

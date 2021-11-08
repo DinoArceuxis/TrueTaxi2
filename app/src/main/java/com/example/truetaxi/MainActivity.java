@@ -31,7 +31,10 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
-            startActivity(new Intent(MainActivity.this,MyDashboardActivity.class));
+            Intent i = new Intent(this,MyDashboardActivity.class);
+            i.putExtra("username",username);
+            i.putExtra("password",password);
+            startActivity(i);
             finish();
         }
     }
