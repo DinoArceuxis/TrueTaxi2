@@ -3,6 +3,8 @@ package com.example.truetaxi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -31,11 +33,21 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
-            Intent i = new Intent(this,MyDashboardActivity.class);
-            i.putExtra("username",username);
-            i.putExtra("password",password);
-            startActivity(i);
-            finish();
+            AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this,"truetaxidb",null,1);
+            SQLiteDatabase db = admin.getWritableDatabase();
+            Cursor fila = db.rawQuery("select * from Cliente where nombre='"+username+"' and password='"+password+"'",null);
+            if(fila.moveToFirst() || (username.equals("admin") && password.equals("admin")))
+            {
+                Intent i = new Intent(this,MyDashboardActivity.class);
+                i.putExtra("username",username);
+                i.putExtra("password",password);
+                startActivity(i);
+                finish();
+            }
+            else
+            {
+                Toast.makeText(MainActivity.this, "Nombre o contraseña incorrectos. Prueba otra vez.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
     public void pressRegistro(View view)
