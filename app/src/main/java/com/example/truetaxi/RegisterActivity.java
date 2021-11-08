@@ -2,7 +2,10 @@ package com.example.truetaxi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -55,20 +58,46 @@ public class RegisterActivity extends AppCompatActivity {
     public void registro(View view)
     {
         //FUNCION PARA REGISTRO DEL USUARIO
-        String username,password,mail,tlf;
-        username=Et_username.getText().toString();
-        password=Et_password.getText().toString();
-        mail=Et_mail.getText().toString();
-        tlf=Et_tlf.getText().toString();
-
+        String username,password,mail,tlf,pago;
+        username = Et_username.getText().toString();
+        password = Et_password.getText().toString();
+        mail = Et_mail.getText().toString();
+        tlf = Et_tlf.getText().toString();
+        pago = formas_pago_spinner.getSelectedItem().toString();
         if(username.length()<1 || password.length()<1 || mail.length()<1 || tlf.length()<1)
         {
             Toast.makeText(RegisterActivity.this, "Todos los campos deben estar completos.", Toast.LENGTH_SHORT).show();
         }
         else {
-            Toast.makeText(RegisterActivity.this, "Correo de verificacion enviado a la direccion de email especificada.", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-            finish();
+            AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this,"truetaxidb",null,1);
+            SQLiteDatabase db = admin.getWritableDatabase();
+
+            Cursor fila = db.rawQuery("select * from Cliente where nombre='"+username+"'",null);
+            if(fila.moveToFirst())
+            {
+                Toast.makeText(RegisterActivity.this, "El nombre de usuario especificado ya existe. Por favor usa otro.", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                ContentValues registro = new ContentValues();
+                registro.put("nombre", username);
+                registro.put("password", password);
+                registro.put("correo", mail);
+                registro.put("telf", tlf);
+                registro.put("pago", pago);
+                db.insert("Cliente", null, registro);
+                db.close();
+
+                //ENVIAR CORREO DE VERIFICACION
+                Intent email_send = new Intent(Intent.ACTION_SEND);
+                email_send.putExtra(Intent.EXTRA_EMAIL,new String[]{mail});
+                email_send.putExtra(Intent.EXTRA_SUBJECT,"Correo de verificacion [TRUE TAXI]");
+                email_send.putExtra(Intent.EXTRA_TEXT,"Gracias por registrarte en True Taxi, esperamos que te sea útil y no de muchos fallos ^-^'");
+                startActivity(Intent.createChooser(email_send,"Choose an Email client :"));
+
+                Toast.makeText(RegisterActivity.this, "Correo de verificacion enviado a la direccion de email especificada.", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(RegisterActivity.this, ActivitySplashScreen.class));
+                finish();
+            }
         }
     }
 }

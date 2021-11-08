@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 public class MyDashboardActivity extends AppCompatActivity {
-
+    private String username,password;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -15,8 +15,8 @@ public class MyDashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_dashboard);
 
         Bundle bundle = getIntent().getExtras();
-        String username = bundle.getString("username");
-        String password = bundle.getString("password");
+        username = bundle.getString("username");
+        password = bundle.getString("password");
         if(username.equals("admin") && password.equals("admin"))
         {
             findViewById(R.id.cv_listataxis).setVisibility(View.VISIBLE);
@@ -30,7 +30,10 @@ public class MyDashboardActivity extends AppCompatActivity {
 
     public void click_misdatos(View view)
     {
-        startActivity(new Intent(MyDashboardActivity.this,MisDatosActivity.class));
+        Intent i = new Intent(this,MisDatosActivity.class);
+        i.putExtra("username",username);
+        i.putExtra("password",password);
+        startActivity(i);
     }
     public void click_solicitartaxi(View view)
     {
