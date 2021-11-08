@@ -45,16 +45,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String pago_selecc= (String) formas_pago_spinner.getAdapter().getItem(i);
-
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
         //FIN - CONTROL SPINNER FORMAS DE PAGO
     }
-
     public void registro(View view)
     {
         //FUNCION PARA REGISTRO DEL USUARIO

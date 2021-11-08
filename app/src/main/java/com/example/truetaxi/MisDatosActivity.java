@@ -29,13 +29,4 @@ public class MisDatosActivity extends AppCompatActivity {
         username=et_username.getText().toString();
         password=et_password.getText().toString();
     }
-
-    public void volver(View view)
-    {
-        Intent i = new Intent(this,MyDashboardActivity.class);
-        i.putExtra("username",username);
-        i.putExtra("password",password);
-        startActivity(i);
-        startActivity(new Intent(MisDatosActivity.this,MyDashboardActivity.class));
-    }
 }

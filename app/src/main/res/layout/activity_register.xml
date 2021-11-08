@@ -133,4 +133,5 @@
         android:onClick="registro"
         android:text="REGISTRARSE"
         android:textStyle="bold" />
+
 </RelativeLayout>

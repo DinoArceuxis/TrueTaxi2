@@ -21,11 +21,18 @@
         android:textSize="35dp"
         android:textStyle="bold" />
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:id="@+id/imagen"
+        android:layout_height="200dp"
+        android:padding="10dp"
+        android:layout_below="@id/txt_iniciarsesion"
+        android:src="@drawable/jordienp"/>
     <EditText
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txt_iniciarsesion"
+        android:layout_below="@id/imagen"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
@@ -116,18 +123,4 @@
         android:textColorHint="@color/white" />
 
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/registerbtn"
-        android:layout_width="152dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/formapago"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="5dp"
-        android:backgroundTint="@color/design_default_color_secondary"
-        android:onClick="volver"
-        android:text="VOLVER"
-        android:textStyle="bold" />
 </RelativeLayout>
