@@ -82,14 +82,14 @@ public class RegisterActivity extends AppCompatActivity {
                 registro.put("telf", tlf);
                 registro.put("pago", pago);
                 db.insert("Cliente", null, registro);
-                db.close();
 
                 //ENVIAR CORREO DE VERIFICACION
                 Intent email_send = new Intent(Intent.ACTION_SEND);
-                email_send.putExtra(Intent.EXTRA_EMAIL,new String[]{mail});
+                email_send.putExtra(Intent.EXTRA_EMAIL,new String[]{mail.toString()});
                 email_send.putExtra(Intent.EXTRA_SUBJECT,"Correo de verificacion [TRUE TAXI]");
                 email_send.putExtra(Intent.EXTRA_TEXT,"Gracias por registrarte en True Taxi, esperamos que te sea útil y no de muchos fallos ^-^'");
-                startActivity(Intent.createChooser(email_send,"Choose an Email client :"));
+                email_send.setType("message/rfc822");
+                startActivity(Intent.createChooser(email_send,"Choose Mail App"));
 
                 Toast.makeText(RegisterActivity.this, "Correo de verificacion enviado a la direccion de email especificada.", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(RegisterActivity.this, ActivitySplashScreen.class));
