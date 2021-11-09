@@ -2,20 +2,26 @@ package com.example.truetaxi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class ListaTaxisActivity extends AppCompatActivity {
     private ListView lv_taxis;
-
+    private Dialog myDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -37,18 +43,57 @@ public class ListaTaxisActivity extends AppCompatActivity {
         }
         if(fila.moveToFirst()){
             do{
-                lista_taxis.add("Taxi "+fila.getInt(0) + " - " + fila.getString(1));
+                lista_taxis.add("Matricula: "+fila.getString(1));
             }while(fila.moveToNext());
         }
+        fila.close();
         db.close();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista_taxis);
         lv_taxis.setAdapter(adapter);
+        myDialog = new Dialog(this);
+        lv_taxis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String matriculaAux = adapter.getItem(position);
+                String matricula = matriculaAux.substring(11);
+
+                myDialog.setContentView(R.layout.popup);
+                myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                myDialog.show();
+
+                AdminSQLiteOpenHelper admin2 = new AdminSQLiteOpenHelper(ListaTaxisActivity.this,"truetaxidb",null,1);
+                SQLiteDatabase db2 = admin2.getWritableDatabase();
+                Cursor fila2 = db2.rawQuery("select * from Taxi where matricula='"+matricula+"'",null);
+                if(fila2.moveToFirst())
+                {
+                    EditText popup_matricula,popup_estado,popup_ubicacion,popup_destino;
+                    popup_matricula = myDialog.findViewById(R.id.et_popup_matricula);
+                    popup_estado = myDialog.findViewById(R.id.et_popup_estado);
+                    popup_ubicacion = myDialog.findViewById(R.id.et_popup_ubicacion);
+                    popup_destino = myDialog.findViewById(R.id.et_popup_destino);
+
+                    popup_matricula.setText(fila2.getString(1));
+                    popup_estado.setText(fila2.getString(2));
+                    popup_ubicacion.setText(fila2.getString(3));
+                    popup_destino.setText(fila2.getString(4));
+                }
+                else
+                {
+                    Toast.makeText(ListaTaxisActivity.this, "Error en taxi con matricula "+matricula, Toast.LENGTH_SHORT).show();
+                }
+                fila2.close();
+                db2.close();
+            }
+        });
+
+
     }
 
     public void registro_taxis(View view)
     {
         startActivity(new Intent(ListaTaxisActivity.this,RegistrarTaxiActivity.class));
     }
+
 
 }
