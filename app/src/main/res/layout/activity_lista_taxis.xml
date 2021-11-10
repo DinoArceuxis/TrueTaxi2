@@ -28,14 +28,15 @@
 
         <ListView
             android:id="@+id/lv_taxis"
-            android:layout_width="wrap_content"
-            android:layout_height="524dp"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
             android:layout_margin="20dp"
             android:background="@color/white"
             app:layout_constraintTop_toBottomOf="@id/txt_iniciarsesion" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/registerbtn"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"

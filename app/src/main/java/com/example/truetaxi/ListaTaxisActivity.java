@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -77,6 +78,15 @@ public class ListaTaxisActivity extends AppCompatActivity {
                     popup_estado.setText(fila2.getString(2));
                     popup_ubicacion.setText(fila2.getString(3));
                     popup_destino.setText(fila2.getString(4));
+
+                    if(fila2.getString(2).equals("Libre"))
+                    {
+                        popup_estado.setBackgroundColor(Color.argb(100,140,255,140));
+                    }
+                    else if(fila2.getString(2).equals("Ocupado"))
+                    {
+                        popup_estado.setBackgroundColor(Color.argb(100,255,140,140));
+                    }
                 }
                 else
                 {
@@ -87,6 +97,48 @@ public class ListaTaxisActivity extends AppCompatActivity {
             }
         });
 
+        lv_taxis.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String matriculaAux = (String) adapterView.getItemAtPosition(i);
+                String matricula = matriculaAux.substring(11);
+
+                myDialog.setContentView(R.layout.hold_popup);
+                myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                myDialog.show();
+
+                AdminSQLiteOpenHelper admin2 = new AdminSQLiteOpenHelper(ListaTaxisActivity.this,"truetaxidb",null,1);
+                SQLiteDatabase db2 = admin2.getWritableDatabase();
+                Cursor fila = db2.rawQuery("select * from Taxi where matricula='"+matricula+"'",null);
+                if(fila.moveToFirst())
+                {
+                    EditText popup_matricula,popup_estado,popup_ubicacion,popup_destino;
+                    popup_matricula = myDialog.findViewById(R.id.et_popup_matricula);
+                    popup_estado = myDialog.findViewById(R.id.et_popup_estado);
+
+                    popup_matricula.setText(fila.getString(1));
+                    popup_estado.setText(fila.getString(2));
+                    if(fila.getString(2).equals("Libre"))
+                    {
+                        popup_estado.setBackgroundColor(Color.argb(100,140,255,140));
+                    }
+                    else if(fila.getString(2).equals("Ocupado"))
+                    {
+                        popup_estado.setBackgroundColor(Color.argb(100,255,140,140));
+                    }
+
+                }
+                else
+                {
+                    Toast.makeText(ListaTaxisActivity.this, "Error en taxi con matricula "+matricula, Toast.LENGTH_SHORT).show();
+                }
+                fila.close();
+                db2.close();
+
+                //Toast.makeText(getApplicationContext(), "LONGPRESS matricula "+matricula, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
 
     }
 
