@@ -7,14 +7,26 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+import java.nio.charset.Charset;
+import java.util.Properties;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -75,6 +87,9 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this, "El nombre de usuario especificado ya existe. Por favor usa otro.", Toast.LENGTH_SHORT).show();
             }
             else {
+                byte[] random_array = new byte[5];
+                new Random().nextBytes(random_array);
+                String random_code = new String(random_array, Charset.forName("UTF-8"));
                 ContentValues registro = new ContentValues();
                 registro.put("nombre", username);
                 registro.put("password", password);
@@ -84,18 +99,42 @@ public class RegisterActivity extends AppCompatActivity {
                 db.insert("Cliente", null, registro);
 
                 //ENVIAR CORREO DE VERIFICACION
-                Intent email_send = new Intent(Intent.ACTION_SEND);
-                email_send.putExtra(Intent.EXTRA_EMAIL,new String[]{mail.toString()});
-                email_send.putExtra(Intent.EXTRA_SUBJECT,"Correo de verificacion [TRUE TAXI]");
-                email_send.putExtra(Intent.EXTRA_TEXT,"Gracias por registrarte en True Taxi, esperamos que te sea útil y no de muchos fallos ^-^'");
-                email_send.setType("message/rfc822");
-                startActivity(Intent.createChooser(email_send,"Choose Mail App"));
+                /*final String mail_username = "truetaxi.oof@gmail.com";
+                final String mail_password = "delaverga123";
 
-                Toast.makeText(RegisterActivity.this, "Correo de verificacion enviado a la direccion de email especificada.", Toast.LENGTH_SHORT).show();
+                String mensaje_a_enviar = "¡Gracias por registrarte en TrueTaxi!\nTu código de verificación es "+random_code;
+
+                Properties props = new Properties();
+                props.put("mail.smtp.auth","true");
+                props.put("mail.smtp.starttls.enable","true");
+                props.put("mail.smtp.host","smtp.gmail.com");
+                props.put("mail.smtp.port","587");
+
+                Session session = Session.getInstance(props,new javax.mail.Authenticator(){
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(mail_username,mail_password);
+                    }
+                });
+
+                try{
+                    MimeMessage message = new MimeMessage(session);
+                    message.setFrom(new InternetAddress(mail_username));
+                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail));
+                    message.setSubject("Probando","UTF-8");
+                    message.setText(mensaje_a_enviar);
+                    Transport.send(message);
+                    Toast.makeText(RegisterActivity.this, "Correo de verificacion enviado a la direccion de email especificada.", Toast.LENGTH_SHORT).show();
+                }catch (MessagingException e){
+                    throw new RuntimeException(e);
+                }*/
+
                 startActivity(new Intent(RegisterActivity.this, ActivitySplashScreen.class));
                 finish();
             }
             db.close();
         }
+        //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        //StrictMode.setThreadPolicy(policy);
     }
 }
