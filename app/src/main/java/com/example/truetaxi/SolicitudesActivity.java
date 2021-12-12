@@ -117,16 +117,24 @@ public class SolicitudesActivity extends AppCompatActivity {
     }
     public void verificar(View view)
     {
-        personas.remove(selected);
-        ArrayList<String> lista_solicitudes2 = new ArrayList<>();
-        for(int i=0;i<personas.size();i++)
-        {
-            lista_solicitudes2.add("Solicitud "+(i+1)+" - "+personas.get(i));
+        double random=Math.random();
+        if(random>0.5) {
+            personas.remove(selected);
+            ArrayList<String> lista_solicitudes2 = new ArrayList<>();
+            for (int i = 0; i < personas.size(); i++) {
+                lista_solicitudes2.add("Solicitud " + (i + 1) + " - " + personas.get(i));
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista_solicitudes2);
+            lv_solicitudes.setAdapter(adapter);
+            Toast.makeText(SolicitudesActivity.this, "Solicitud de taxi verificada y aceptada.", Toast.LENGTH_SHORT).show();
+            myDialog.hide();
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista_solicitudes2);
-        lv_solicitudes.setAdapter(adapter);
-        Toast.makeText(SolicitudesActivity.this, "Solicitud de taxi verificada y aceptada.", Toast.LENGTH_SHORT).show();
-        myDialog.hide();
+        else{
+            myDialog.hide();
+            myDialog.setContentView(R.layout.popup3);
+            myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            myDialog.show();
+        }
     }
     public void denegar(View view)
     {
@@ -139,6 +147,18 @@ public class SolicitudesActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista_solicitudes2);
         lv_solicitudes.setAdapter(adapter);
         Toast.makeText(SolicitudesActivity.this, "Solicitud de taxi denegada y eliminada.", Toast.LENGTH_SHORT).show();
+        myDialog.hide();
+    }
+    public void reintentar(View view)
+    {
+        personas.remove(selected);
+        ArrayList<String> lista_solicitudes2 = new ArrayList<>();
+        for (int i = 0; i < personas.size(); i++) {
+            lista_solicitudes2.add("Solicitud " + (i + 1) + " - " + personas.get(i));
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista_solicitudes2);
+        lv_solicitudes.setAdapter(adapter);
+        Toast.makeText(SolicitudesActivity.this, "Solicitud de taxi verificada y aceptada.", Toast.LENGTH_SHORT).show();
         myDialog.hide();
     }
 }
