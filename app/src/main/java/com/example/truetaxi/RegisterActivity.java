@@ -128,7 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }catch (MessagingException e){
                     throw new RuntimeException(e);
                 }*/
-
+                Toast.makeText(RegisterActivity.this, "Correo de verificacion enviado a la direccion de email especificada.", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(RegisterActivity.this, ActivitySplashScreen.class));
                 finish();
             }
