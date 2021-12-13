@@ -18,7 +18,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
 
-
 public class SolicitudesActivity extends AppCompatActivity {
     private ListView lv_solicitudes;
     private Dialog myDialog;
