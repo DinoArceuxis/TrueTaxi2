@@ -29,10 +29,18 @@
         <ListView
             android:id="@+id/lv_taxis"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="200dp"
             android:layout_margin="20dp"
             android:background="@color/white"
             app:layout_constraintTop_toBottomOf="@id/txt_iniciarsesion" />
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:id="@+id/taxismap"
+            android:layout_width="match_parent"
+            android:layout_margin="18dp"
+            android:layout_height="250dp"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/registerbtn"

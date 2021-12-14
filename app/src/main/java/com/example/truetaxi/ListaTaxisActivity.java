@@ -1,14 +1,20 @@
 package com.example.truetaxi;
 
+import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,16 +23,35 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.util.ArrayList;
 
-public class ListaTaxisActivity extends AppCompatActivity {
+public class ListaTaxisActivity extends AppCompatActivity implements OnMapReadyCallback {
     private ListView lv_taxis;
     private Dialog myDialog;
+    private GoogleMap mMap;
+    private Marker marker_taxi1;
+    private Marker marker_taxi2;
+    private Marker marker_taxi3;
+    private Marker marker_taxi4;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_taxis);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.taxismap);
+        mapFragment.getMapAsync(this);
+
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this,"truetaxidb",null,1);
         SQLiteDatabase db = admin.getWritableDatabase();
         ArrayList<String> lista_taxis = new ArrayList<>();
@@ -147,4 +172,48 @@ public class ListaTaxisActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        LatLng posicion_inicial= new LatLng(40.423539831464275, -3.7122618600260076);
+
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.taxiconpng);
+
+        LatLng taxi1 = new LatLng(40.42391872200169, -3.7113882173269634);
+        marker_taxi1 = mMap.addMarker(new MarkerOptions()
+            .position(taxi1)
+            .title("1234A")
+                .snippet("Estado: Libre").icon(icon)
+            );
+        LatLng taxi2=new LatLng(40.41956268999513, -3.6985230139617746);
+        marker_taxi2 = mMap.addMarker(new MarkerOptions()
+                .position(taxi2)
+                        .title("2345B")
+                        .snippet("Estado: Ocupado").icon(icon));
+        LatLng taxi3=new LatLng(40.40541836860153, -3.8393703457352415);
+        marker_taxi3 = mMap.addMarker(new MarkerOptions()
+                .position(taxi3)
+                        .title("3456C")
+                        .snippet("Estado: Libre").icon(icon));
+        LatLng taxi4=new LatLng(40.43446684470619, -3.71905670771421);
+        marker_taxi4 = mMap.addMarker(new MarkerOptions()
+                .position(taxi4)
+                        .title("3456C")
+                        .snippet("Estado: Ocupado").icon(icon));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(posicion_inicial));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(14));
+    }
+
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorDrawableResourceId) {
+        Drawable background = ContextCompat.getDrawable(context, R.drawable.gradient);
+        background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId);
+        vectorDrawable.setBounds(40, 20, vectorDrawable.getIntrinsicWidth() + 40, vectorDrawable.getIntrinsicHeight() + 20);
+        Bitmap bitmap = Bitmap.createBitmap(background.getIntrinsicWidth(), background.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        background.draw(canvas);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
 }
