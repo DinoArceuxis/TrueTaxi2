@@ -32,10 +32,10 @@ public class SolicitudesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solicitudes);
 
-        personas.add("Pedro Cepeda Goñi");
+        personas.add("Santiago de la Vega Urgal");
         personas.add("Jorge Fernandez Conde");
         personas.add("Gonzalo Peña Ruperez");
-        personas.add("Santiago de la Vega Urgal");
+        personas.add("Pedro Cepeda Goñi");
         lv_solicitudes=(ListView) findViewById(R.id.lv_solicitudes);
         for(int i=0;i<personas.size();i++)
         {
@@ -52,11 +52,11 @@ public class SolicitudesActivity extends AppCompatActivity {
                 selected=i;
                 if(i==0)
                 {
-                    nombreuser="Pedro Cepeda Goñi";
-                    matriculataxi="1234A";
-                    origen="ETSINF - Boadilla del Monte";
-                    destino="Calle Principe Pio 23";
-                    fecha="19/12/2021 19:23";
+                    nombreuser="Santiago de la Vega Urgal";
+                    matriculataxi="4567D";
+                    origen="Calle Gran Via 12";
+                    destino="Intercambiador de Moncloa";
+                    fecha="13/12/2021 09:21";
                 }
                 else if(i==1)
                 {
@@ -76,11 +76,11 @@ public class SolicitudesActivity extends AppCompatActivity {
                 }
                 else if(i==3)
                 {
-                    nombreuser="Santiago de la Vega Urgal";
-                    matriculataxi="4567D";
-                    origen="Calle Gran Via 12";
+                    nombreuser="Pedro Cepeda Goñi";
+                    matriculataxi="1234A";
+                    origen="Calle Puerta del Angel 23";
                     destino="Intercambiador de Moncloa";
-                    fecha="13/12/2021 09:21";
+                    fecha="19/12/2021 19:23";
                 }
                 else
                 {
@@ -89,6 +89,8 @@ public class SolicitudesActivity extends AppCompatActivity {
                     origen="Demasiados ejemplos";
                     destino="Demasiados ejemplos";
                     fecha="Demasiados ejemplos";
+
+
                 }
                 myDialog.setContentView(R.layout.popup2);
                 myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -110,14 +112,14 @@ public class SolicitudesActivity extends AppCompatActivity {
     }
     public void download_logs(View view)
     {
-        Toast.makeText(SolicitudesActivity.this, "Descarga iniciada.", Toast.LENGTH_LONG).show();
+        Toast.makeText(SolicitudesActivity.this, "Descarga iniciada.", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(SolicitudesActivity.this, ProgressBarActivity.class));
         finish();
     }
     public void verificar(View view)
     {
         double random=Math.random();
-        if(random>0.5) {
+        if(random>0.9) {
             personas.remove(selected);
             ArrayList<String> lista_solicitudes2 = new ArrayList<>();
             for (int i = 0; i < personas.size(); i++) {

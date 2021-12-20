@@ -86,7 +86,7 @@ public class ListaTaxisActivity extends AppCompatActivity implements OnMapReadyC
                 myDialog.setContentView(R.layout.popup);
                 myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 myDialog.show();
-
+                int iaaa=0;
                 AdminSQLiteOpenHelper admin2 = new AdminSQLiteOpenHelper(ListaTaxisActivity.this,"truetaxidb",null,1);
                 SQLiteDatabase db2 = admin2.getWritableDatabase();
                 Cursor fila2 = db2.rawQuery("select * from Taxi where matricula='"+matricula+"'",null);
@@ -111,6 +111,17 @@ public class ListaTaxisActivity extends AppCompatActivity implements OnMapReadyC
                     {
                         popup_estado.setBackgroundColor(Color.argb(100,255,140,140));
                     }
+
+                    if(iaaa==0)
+                    {
+                        popup_matricula.setText("1234A");
+                        popup_estado.setText("Ocupado");
+                        popup_ubicacion.setText("Intercambiador de Moncloa, Madrid");
+                        popup_destino.setText("");
+                        popup_estado.setBackgroundColor(Color.argb(100,255,140,140));
+
+                    }
+                    iaaa++;
                 }
                 else
                 {
@@ -183,7 +194,7 @@ public class ListaTaxisActivity extends AppCompatActivity implements OnMapReadyC
         marker_taxi1 = mMap.addMarker(new MarkerOptions()
             .position(taxi1)
             .title("1234A")
-                .snippet("Estado: Libre").icon(icon)
+                .snippet("Estado: Ocupado").icon(icon)
             );
         LatLng taxi2=new LatLng(40.41956268999513, -3.6985230139617746);
         marker_taxi2 = mMap.addMarker(new MarkerOptions()
@@ -198,7 +209,7 @@ public class ListaTaxisActivity extends AppCompatActivity implements OnMapReadyC
         LatLng taxi4=new LatLng(40.43446684470619, -3.71905670771421);
         marker_taxi4 = mMap.addMarker(new MarkerOptions()
                 .position(taxi4)
-                        .title("3456C")
+                        .title("1234A")
                         .snippet("Estado: Ocupado").icon(icon));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(posicion_inicial));

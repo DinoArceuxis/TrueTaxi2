@@ -43,7 +43,7 @@ public class MisSolicitudesActivity extends AppCompatActivity {
         }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(MisSolicitudesActivity.this,"My Notification");
         builder.setContentTitle("Solicitud Verificada");
-        builder.setContentText("Taxi: 1234A\nOrigen: ETSINF - Boadilla del Monte\nDestino: Calle Principe Pio 23");
+        builder.setContentText("Taxi: 1234A\nOrigen: Calle Puerta del Angel 23, Madrid\nDestino: Intercambiador de Moncloa, Madrid");
         builder.setSmallIcon(R.drawable.ic_baseline_verified_user_24);
         builder.setAutoCancel(true);
 
@@ -69,27 +69,27 @@ public class MisSolicitudesActivity extends AppCompatActivity {
                 selected=i;
                 if(i==0)
                 {
-                    matriculataxi="1234A";
-                    origen="ETSINF - Boadilla del Monte";
-                    destino="Calle Principe Pio 23";
-                    fecha="19/12/2021 19:23";
-                    estado="Verificada";
+                    matriculataxi="Sin Asignar";
+                    origen="Principe Pio 23, Madrid";
+                    destino="Calle Arrakeen 4, Madrid";
+                    fecha="14/12/2021 23:32";
+                    estado="Rechazada";
                 }
                 else if(i==1)
                 {
                     matriculataxi="Sin Asignar";
-                    origen="Calle Puerta del Angel 31";
-                    destino="Principe Pio 23";
+                    origen="Calle Puerta del Angel 31, Madrid";
+                    destino="Principe Pio 23, Madrid";
                     fecha="17/12/2021 15:18";
                     estado="Pendiente";
                 }
                 else if(i==2)
                 {
-                    matriculataxi="Sin Asignar";
-                    origen="Principe Pio 23";
-                    destino="Calle Arrakeen 4";
-                    fecha="14/12/2021 23:32";
-                    estado="Rechazada";
+                    matriculataxi="1234A";
+                    origen="Calle Puerta del Angel 23, Madrid";
+                    destino="Intercambiador de Moncloa, Madrid";
+                    fecha="19/12/2021 19:23";
+                    estado="Verificada";
                 }
                 else
                 {
